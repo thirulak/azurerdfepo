@@ -1,0 +1,34 @@
+{
+	"name": "Ds_SFTP_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Ls_SFTP",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "SSIS_Final.zip",
+				"folderPath": "/test"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PK\u0003\u0004\u0014\u0000\u0000\u0000\u0000\u0000W��Z\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u000b\u0000 \u0000SSIS_Final/ux\u000b\u0000\u0001\u0004\u0000\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000UT",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

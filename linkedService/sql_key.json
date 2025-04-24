@@ -1,0 +1,11 @@
+{
+	"name": "sql_key",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://Pharmacydbkeyvault.vault.azure.net/"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "pharmacyfxreport",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "df0eaca9-887b-42f7-9a89-d17b6ba82a22",
+		"tenantId": "c663f89c-ef9b-418f-bd3d-41e46c0ce068"
+	}
+}
