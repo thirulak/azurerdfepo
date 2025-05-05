@@ -2,7 +2,7 @@
 	"name": "Ds_SFTP_Src",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Ls_SFTP",
+			"referenceName": "LS_for_Azureblob",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
