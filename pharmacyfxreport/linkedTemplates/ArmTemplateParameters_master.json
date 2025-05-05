@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "pharmacyfxreport"
+		},
+		"LS_for_Azureblob_password": {
+			"value": ""
+		},
+		"Linkedservice_for_Blob_connectionString": {
+			"value": ""
+		},
+		"Linkedservices_for_sqlserver_password": {
+			"value": ""
+		},
+		"Ls_SFTP_password": {
+			"value": ""
+		},
+		"LS_for_Azureblob_properties_typeProperties_host": {
+			"value": "eu-central-1.sftpcloud.io"
+		},
+		"LS_for_Azureblob_properties_typeProperties_userName": {
+			"value": "6a35864e5c444e399697b934c4788a90"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
+			"value": "pharmacydbserver.database.windows.net"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_database": {
+			"value": "pharmacydb"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_userName": {
+			"value": "ramya"
+		},
+		"Ls_SFTP_properties_typeProperties_host": {
+			"value": "eu-central-1.sftpcloud.io"
+		},
+		"Ls_SFTP_properties_typeProperties_userName": {
+			"value": "ad31acfc83d8423d9e420130bd3ad849"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_server": {
+			"value": "pharmacydbserver.database.windows.net"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_database": {
+			"value": "pharmacydb"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_userName": {
+			"value": "ramya"
+		},
+		"sql_key_properties_typeProperties_baseUrl": {
+			"value": "https://Pharmacydbkeyvault.vault.azure.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

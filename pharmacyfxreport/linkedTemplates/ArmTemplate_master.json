@@ -1,0 +1,147 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "pharmacyfxreport"
+		},
+		"LS_for_Azureblob_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_for_Azureblob'"
+		},
+		"Linkedservice_for_Blob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Linkedservice_for_Blob'"
+		},
+		"Linkedservices_for_sqlserver_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Linkedservices_for_sqlserver'"
+		},
+		"Ls_SFTP_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Ls_SFTP'"
+		},
+		"LS_for_Azureblob_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "eu-central-1.sftpcloud.io"
+		},
+		"LS_for_Azureblob_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "6a35864e5c444e399697b934c4788a90"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "pharmacydbserver.database.windows.net"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "pharmacydb"
+		},
+		"Linkedservices_for_sqlserver_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramya"
+		},
+		"Ls_SFTP_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "eu-central-1.sftpcloud.io"
+		},
+		"Ls_SFTP_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ad31acfc83d8423d9e420130bd3ad849"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "pharmacydbserver.database.windows.net"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "pharmacydb"
+		},
+		"ls_Sql_Keyvault_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ramya"
+		},
+		"sql_key_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://Pharmacydbkeyvault.vault.azure.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "pharmacyfxreport_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_for_Azureblob_password": {
+						"value": "[parameters('LS_for_Azureblob_password')]"
+					},
+					"Linkedservice_for_Blob_connectionString": {
+						"value": "[parameters('Linkedservice_for_Blob_connectionString')]"
+					},
+					"Linkedservices_for_sqlserver_password": {
+						"value": "[parameters('Linkedservices_for_sqlserver_password')]"
+					},
+					"Ls_SFTP_password": {
+						"value": "[parameters('Ls_SFTP_password')]"
+					},
+					"LS_for_Azureblob_properties_typeProperties_host": {
+						"value": "[parameters('LS_for_Azureblob_properties_typeProperties_host')]"
+					},
+					"LS_for_Azureblob_properties_typeProperties_userName": {
+						"value": "[parameters('LS_for_Azureblob_properties_typeProperties_userName')]"
+					},
+					"Linkedservices_for_sqlserver_properties_typeProperties_server": {
+						"value": "[parameters('Linkedservices_for_sqlserver_properties_typeProperties_server')]"
+					},
+					"Linkedservices_for_sqlserver_properties_typeProperties_database": {
+						"value": "[parameters('Linkedservices_for_sqlserver_properties_typeProperties_database')]"
+					},
+					"Linkedservices_for_sqlserver_properties_typeProperties_userName": {
+						"value": "[parameters('Linkedservices_for_sqlserver_properties_typeProperties_userName')]"
+					},
+					"Ls_SFTP_properties_typeProperties_host": {
+						"value": "[parameters('Ls_SFTP_properties_typeProperties_host')]"
+					},
+					"Ls_SFTP_properties_typeProperties_userName": {
+						"value": "[parameters('Ls_SFTP_properties_typeProperties_userName')]"
+					},
+					"sql_key_properties_typeProperties_baseUrl": {
+						"value": "[parameters('sql_key_properties_typeProperties_baseUrl')]"
+					},
+					"ls_Sql_Keyvault_properties_typeProperties_server": {
+						"value": "[parameters('ls_Sql_Keyvault_properties_typeProperties_server')]"
+					},
+					"ls_Sql_Keyvault_properties_typeProperties_database": {
+						"value": "[parameters('ls_Sql_Keyvault_properties_typeProperties_database')]"
+					},
+					"ls_Sql_Keyvault_properties_typeProperties_userName": {
+						"value": "[parameters('ls_Sql_Keyvault_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
