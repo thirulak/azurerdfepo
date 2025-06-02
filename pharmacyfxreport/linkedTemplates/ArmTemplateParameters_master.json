@@ -21,7 +21,7 @@
 			"value": "eu-central-1.sftpcloud.io"
 		},
 		"LS_for_Azureblob_properties_typeProperties_userName": {
-			"value": "6a35864e5c444e399697b934c4788a90"
+			"value": "8d11ae3de617432fa5a2bbf31e62b385"
 		},
 		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
 			"value": "pharmacydbserver.database.windows.net"
@@ -36,7 +36,7 @@
 			"value": "eu-central-1.sftpcloud.io"
 		},
 		"Ls_SFTP_properties_typeProperties_userName": {
-			"value": "ad31acfc83d8423d9e420130bd3ad849"
+			"value": "8d11ae3de617432fa5a2bbf31e62b385"
 		},
 		"ls_Sql_Keyvault_properties_typeProperties_server": {
 			"value": "pharmacydbserver.database.windows.net"

@@ -29,7 +29,7 @@
 		},
 		"LS_for_Azureblob_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "6a35864e5c444e399697b934c4788a90"
+			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
 		},
 		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
 			"type": "string",
@@ -49,7 +49,7 @@
 		},
 		"Ls_SFTP_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "ad31acfc83d8423d9e420130bd3ad849"
+			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
 		},
 		"ls_Sql_Keyvault_properties_typeProperties_server": {
 			"type": "string",
@@ -583,8 +583,6 @@
 					{
 						"name": "File_from_FTPSrc",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -709,7 +707,7 @@
 					"location": {
 						"type": "SftpLocation",
 						"fileName": "SSIS_Final.zip",
-						"folderPath": "/test"
+						"folderPath": "/Test"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -1122,7 +1120,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
