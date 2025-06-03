@@ -29,7 +29,7 @@
 		},
 		"LS_for_Azureblob_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
+			"defaultValue": "d86217ff85514a31ade78672147688d3"
 		},
 		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
 			"type": "string",
@@ -1234,7 +1234,7 @@
 					"location": {
 						"type": "SftpLocation",
 						"fileName": "SSIS_Final.zip",
-						"folderPath": "/Test"
+						"folderPath": "/test"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
