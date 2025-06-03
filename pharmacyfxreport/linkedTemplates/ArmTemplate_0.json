@@ -248,8 +248,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "Unzip.zip",
-						"container": "test"
+						"container": "test1"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
