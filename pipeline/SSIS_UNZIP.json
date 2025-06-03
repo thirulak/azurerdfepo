@@ -153,8 +153,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"wildcardFolderPath": "unzip.zip/unzip",
+							"fileListPath": "output/Unzip.zip/Unzip",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
