@@ -5,14 +5,25 @@
 			"referenceName": "Linkedservice_for_Blob",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"zipfilename": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().zipfilename",
+					"type": "Expression"
+				},
 				"container": "test1"
 			},
 			"columnDelimiter": ",",
+			"compressionCodec": "ZipDeflate",
+			"compressionLevel": "Optimal",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
