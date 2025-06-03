@@ -256,7 +256,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_Multi_Src",
+								"referenceName": "Ds_Multiplefiles_Output",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -492,11 +492,12 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Flatfile_dataset')]",
 				"[concat(variables('factoryId'), '/datasets/outputfile')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Multi_Src')]",
+				"[concat(variables('factoryId'), '/datasets/Ds_Multiplefiles_Output')]",
 				"[concat(variables('factoryId'), '/datasets/sqlserver_key')]",
 				"[concat(variables('factoryId'), '/linkedServices/Linkedservices_for_sqlserver')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_SFTP_Src')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_FTP_Target')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Multi_Src')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_Multiplefiles_Src')]"
 			]
 		},

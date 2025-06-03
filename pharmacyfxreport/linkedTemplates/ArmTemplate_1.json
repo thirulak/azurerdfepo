@@ -196,7 +196,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_Multi_Src",
+								"referenceName": "Ds_Multiplefiles_Output",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
