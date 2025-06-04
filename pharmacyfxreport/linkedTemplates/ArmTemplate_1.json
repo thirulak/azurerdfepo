@@ -170,7 +170,9 @@
 								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"fileListPath": "output/Unzip.zip/Unzip",
+									"recursive": true,
+									"wildcardFolderPath": "unzip.zip",
+									"wildcardFileName": "*.txt",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -381,7 +383,8 @@
 										"sink": {
 											"type": "DelimitedTextSink",
 											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
+												"type": "AzureBlobStorageWriteSettings",
+												"copyBehavior": "FlattenHierarchy"
 											},
 											"formatSettings": {
 												"type": "DelimitedTextWriteSettings",
@@ -414,6 +417,81 @@
 									"outputs": [
 										{
 											"referenceName": "outputfile",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Loop thru multiple files",
+						"type": "ForEach",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Copy data2').output",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Copy data2",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"wildcardFolderPath": "unzip.zip/unzip",
+												"wildcardFileName": "*",
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"preCopyScript": "TRUNCATE TABLE EMPLOYEES_1",
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false,
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "Ds_Multiplefiles_Output",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "sqlserver_key",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
