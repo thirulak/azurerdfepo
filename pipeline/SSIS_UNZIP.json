@@ -154,7 +154,6 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "unzip.zip",
 							"wildcardFileName": "*.txt",
 							"enablePartitionDiscovery": false
 						},
@@ -362,8 +361,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobStorageWriteSettings",
-										"copyBehavior": "FlattenHierarchy"
+										"type": "AzureBlobStorageWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -395,7 +393,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "outputfile",
+									"referenceName": "Ds_Multiplefiles_Output",
 									"type": "DatasetReference"
 								}
 							]
