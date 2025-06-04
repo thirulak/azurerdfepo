@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": ".txt",
 				"folderPath": "Unzip.zip/Unzip",
 				"container": "output"
 			},
