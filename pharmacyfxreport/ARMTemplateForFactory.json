@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Ls_SFTP'"
 		},
+		"azurefunctioncall_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'azurefunctioncall'"
+		},
 		"LS_for_Azureblob_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "eu-central-1.sftpcloud.io"
@@ -51,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
 		},
+		"azurefunctioncall_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://azureunzipfunctionapp.azurewebsites.net"
+		},
 		"ls_Sql_Keyvault_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "pharmacydbserver.database.windows.net"
@@ -73,6 +81,139 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/SSIS_Azurefunction')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data_migration_copy",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "UnzipFunction",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.txt",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "TRUNCATE TABLE dbo.employees_1",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Ds_Multiplefiles_Output",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "sqlserver_key",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "AddEmployee_copy",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Data_migration_copy",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[AddEmployee]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Linkedservices_for_sqlserver",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "UnzipFunction",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "loadfunction",
+							"headers": {},
+							"method": "GET"
+						},
+						"linkedServiceName": {
+							"referenceName": "azurefunctioncall",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-04-24T09:17:01Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Ds_Multiplefiles_Output')]",
+				"[concat(variables('factoryId'), '/datasets/sqlserver_key')]",
+				"[concat(variables('factoryId'), '/linkedServices/Linkedservices_for_sqlserver')]",
+				"[concat(variables('factoryId'), '/linkedServices/azurefunctioncall')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SSIS_UNZIP')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -81,6 +222,8 @@
 					{
 						"name": "Data_migration_copy",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "ForEach1",
@@ -145,6 +288,8 @@
 					{
 						"name": "AddEmployee_copy",
 						"type": "SqlServerStoredProcedure",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Data_migration_copy",
@@ -237,6 +382,8 @@
 					{
 						"name": "Unzip - Multiple Files",
 						"type": "GetMetadata",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "File_from_FTPSrc",
@@ -275,6 +422,8 @@
 					{
 						"name": "ForEach1",
 						"type": "ForEach",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Unzip - Multiple Files",
@@ -361,6 +510,28 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "UnzipFunction",
+						"type": "AzureFunctionActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"functionName": "loadfunction",
+							"headers": {},
+							"method": "GET"
+						},
+						"linkedServiceName": {
+							"referenceName": "azurefunctioncall",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -376,6 +547,7 @@
 				"[concat(variables('factoryId'), '/datasets/Ds_SFTP_Src')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_FTP_Target')]",
 				"[concat(variables('factoryId'), '/datasets/DS_Multi_Src')]",
+				"[concat(variables('factoryId'), '/linkedServices/azurefunctioncall')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_Multiplefiles_Src')]"
 			]
 		},
@@ -1505,6 +1677,24 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('Ls_SFTP_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azurefunctioncall')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('azurefunctioncall_properties_typeProperties_functionAppUrl')]",
+					"authentication": "Anonymous",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('azurefunctioncall_functionKey')]"
 					}
 				}
 			},

@@ -17,6 +17,9 @@
 		"Ls_SFTP_password": {
 			"value": ""
 		},
+		"azurefunctioncall_functionKey": {
+			"value": ""
+		},
 		"LS_for_Azureblob_properties_typeProperties_host": {
 			"value": "eu-central-1.sftpcloud.io"
 		},
@@ -37,6 +40,9 @@
 		},
 		"Ls_SFTP_properties_typeProperties_userName": {
 			"value": "8d11ae3de617432fa5a2bbf31e62b385"
+		},
+		"azurefunctioncall_properties_typeProperties_functionAppUrl": {
+			"value": "https://azureunzipfunctionapp.azurewebsites.net"
 		},
 		"ls_Sql_Keyvault_properties_typeProperties_server": {
 			"value": "pharmacydbserver.database.windows.net"

@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Ls_SFTP'"
 		},
+		"azurefunctioncall_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'azurefunctioncall'"
+		},
 		"LS_for_Azureblob_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "eu-central-1.sftpcloud.io"
@@ -50,6 +54,10 @@
 		"Ls_SFTP_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
+		},
+		"azurefunctioncall_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://azureunzipfunctionapp.azurewebsites.net"
 		},
 		"sql_key_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -145,6 +153,24 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('Ls_SFTP_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azurefunctioncall')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFunction",
+				"typeProperties": {
+					"functionAppUrl": "[parameters('azurefunctioncall_properties_typeProperties_functionAppUrl')]",
+					"authentication": "Anonymous",
+					"functionKey": {
+						"type": "SecureString",
+						"value": "[parameters('azurefunctioncall_functionKey')]"
 					}
 				}
 			},
@@ -925,73 +951,6 @@
 				"[concat(variables('factoryId'), '/linkedServices/Linkedservices_for_sqlserver')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_SFTP_Src')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_FTP_Target')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sqlserver_key')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_Sql_Keyvault",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "employee_id",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "first_name",
-						"type": "varchar"
-					},
-					{
-						"name": "last_name",
-						"type": "varchar"
-					},
-					{
-						"name": "email",
-						"type": "varchar"
-					},
-					{
-						"name": "phone_number",
-						"type": "varchar"
-					},
-					{
-						"name": "hire_date",
-						"type": "date"
-					},
-					{
-						"name": "job_id",
-						"type": "varchar"
-					},
-					{
-						"name": "salary",
-						"type": "decimal",
-						"precision": 10,
-						"scale": 2
-					},
-					{
-						"name": "department_id",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "manager_id",
-						"type": "int",
-						"precision": 10
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "employees_1"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_Sql_Keyvault')]"
 			]
 		}
 	]

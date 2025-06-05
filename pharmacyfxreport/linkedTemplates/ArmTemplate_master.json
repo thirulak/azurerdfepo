@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Ls_SFTP'"
 		},
+		"azurefunctioncall_functionKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'functionKey' of 'azurefunctioncall'"
+		},
 		"LS_for_Azureblob_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "eu-central-1.sftpcloud.io"
@@ -50,6 +54,10 @@
 		"Ls_SFTP_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "8d11ae3de617432fa5a2bbf31e62b385"
+		},
+		"azurefunctioncall_properties_typeProperties_functionAppUrl": {
+			"type": "string",
+			"defaultValue": "https://azureunzipfunctionapp.azurewebsites.net"
 		},
 		"ls_Sql_Keyvault_properties_typeProperties_server": {
 			"type": "string",
@@ -106,6 +114,9 @@
 					"Ls_SFTP_password": {
 						"value": "[parameters('Ls_SFTP_password')]"
 					},
+					"azurefunctioncall_functionKey": {
+						"value": "[parameters('azurefunctioncall_functionKey')]"
+					},
 					"LS_for_Azureblob_properties_typeProperties_host": {
 						"value": "[parameters('LS_for_Azureblob_properties_typeProperties_host')]"
 					},
@@ -126,6 +137,9 @@
 					},
 					"Ls_SFTP_properties_typeProperties_userName": {
 						"value": "[parameters('Ls_SFTP_properties_typeProperties_userName')]"
+					},
+					"azurefunctioncall_properties_typeProperties_functionAppUrl": {
+						"value": "[parameters('azurefunctioncall_properties_typeProperties_functionAppUrl')]"
 					},
 					"sql_key_properties_typeProperties_baseUrl": {
 						"value": "[parameters('sql_key_properties_typeProperties_baseUrl')]"
