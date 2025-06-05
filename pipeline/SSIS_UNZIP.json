@@ -5,6 +5,8 @@
 			{
 				"name": "Data_migration_copy",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -67,6 +69,8 @@
 			{
 				"name": "AddEmployee_copy",
 				"type": "SqlServerStoredProcedure",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Data_migration_copy",
@@ -158,6 +162,8 @@
 			{
 				"name": "Unzip - Multiple Files",
 				"type": "GetMetadata",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "File_from_FTPSrc",
@@ -195,6 +201,8 @@
 			{
 				"name": "ForEach1",
 				"type": "ForEach",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Unzip - Multiple Files",
@@ -279,6 +287,27 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "UnzipFunction",
+				"type": "AzureFunctionActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"functionName": "loadfunction",
+					"method": "GET"
+				},
+				"linkedServiceName": {
+					"referenceName": "azurefunctioncall",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
