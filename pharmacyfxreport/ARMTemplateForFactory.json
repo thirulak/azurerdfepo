@@ -33,7 +33,7 @@
 		},
 		"LS_for_Azureblob_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "c8ad121a489647608ea955c964e97b16"
+			"defaultValue": "f54f8857a22048e8a2d76ecde2f0664a"
 		},
 		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
 			"type": "string",
@@ -222,8 +222,6 @@
 					{
 						"name": "Data_migration_copy",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "ForEach1",
@@ -288,8 +286,6 @@
 					{
 						"name": "AddEmployee_copy",
 						"type": "SqlServerStoredProcedure",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Data_migration_copy",
@@ -317,8 +313,6 @@
 					{
 						"name": "File_from_FTPSrc",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -382,8 +376,6 @@
 					{
 						"name": "Unzip - Multiple Files",
 						"type": "GetMetadata",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "File_from_FTPSrc",
@@ -422,8 +414,6 @@
 					{
 						"name": "ForEach1",
 						"type": "ForEach",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Unzip - Multiple Files",
@@ -510,28 +500,6 @@
 								}
 							]
 						}
-					},
-					{
-						"name": "UnzipFunction",
-						"type": "AzureFunctionActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"functionName": "loadfunction",
-							"headers": {},
-							"method": "GET"
-						},
-						"linkedServiceName": {
-							"referenceName": "azurefunctioncall",
-							"type": "LinkedServiceReference"
-						}
 					}
 				],
 				"policy": {
@@ -547,7 +515,6 @@
 				"[concat(variables('factoryId'), '/datasets/Ds_SFTP_Src')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_FTP_Target')]",
 				"[concat(variables('factoryId'), '/datasets/DS_Multi_Src')]",
-				"[concat(variables('factoryId'), '/linkedServices/azurefunctioncall')]",
 				"[concat(variables('factoryId'), '/datasets/Ds_Multiplefiles_Src')]"
 			]
 		},

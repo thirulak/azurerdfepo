@@ -33,7 +33,7 @@
 		},
 		"LS_for_Azureblob_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "c8ad121a489647608ea955c964e97b16"
+			"defaultValue": "f54f8857a22048e8a2d76ecde2f0664a"
 		},
 		"Linkedservices_for_sqlserver_properties_typeProperties_server": {
 			"type": "string",
